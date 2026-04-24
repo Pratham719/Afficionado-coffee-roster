@@ -1,4 +1,7 @@
-# ☕ Product Optimization & Revenue Contribution Analysis
+<p align="center">
+  <b>☕ Turning coffee data into business insights</b>
+</p>
+## ☕ Product Optimization & Revenue Contribution Analysis
 
 A complete **data analytics project** focused on understanding product performance, revenue contribution, and menu optimization for a coffee retail business.
 
@@ -122,22 +125,24 @@ streamlit run app.py
 
 ## 🛠️ Tech Stack
 
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-Plotly
-Streamlit
+- Python  
+- Pandas  
+- NumPy  
+- Matplotlib  
+- Seaborn  
+- Plotly  
+- Streamlit  
 
 ## 📂 Project Structure
 
+```
 📦 Afficionado-coffee-roaster/
 │
 ├── app.py                                  # Streamlit dashboard
 ├── Afficionado Coffee Roasters.xlsx        # Data file
 ├── Final_research_paper.pdf                # Final report
 └── README.md                               # Documentation
+```
 
 ## 👤 Author
 
