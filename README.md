@@ -105,7 +105,8 @@ Interactive dashboard built using **Streamlit** with:
 
 ```bash
 pip install -r requirements.txt
-streamlit run app.py```
+streamlit run app.py
+```
 
 ## 💡 Key Insights
 - A small % of products generate majority revenue (Pareto principle)
