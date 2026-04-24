@@ -1,6 +1,3 @@
-<p align="center">
-  <b>☕ Turning coffee data into business insights</b>
-</p>
 ## ☕ Product Optimization & Revenue Contribution Analysis
 
 A complete **data analytics project** focused on understanding product performance, revenue contribution, and menu optimization for a coffee retail business.
