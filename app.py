@@ -754,7 +754,7 @@ with tab2:
         xaxis=dict(
             title="Hour",
             showgrid=False,
-            tickfont=dict(color=text_color, size=9),
+            tickfont=dict(color=text_color),
         ),
         yaxis=dict(
             title="Category", tickfont=dict(color=text_color, size=9), automargin=True
@@ -913,7 +913,7 @@ with tab3:
         st.markdown("<div style='margin-bottom:25px;'></div>", unsafe_allow_html=True)
 
     with subtab2:
-        # --------------------- Pareto -------------------------------------
+        # --------------------- Petro -------------------------------------
 
         st.markdown("### 📊 Advanced Pareto Analysis")
 
@@ -937,7 +937,7 @@ with tab3:
 
         # Bars
         fig.add_bar(
-            x=list(range(len(pareto_top))),
+            x=pareto_top["product_detail"],
             y=pareto_top["Revenue"],
             name="Revenue",
             marker=dict(color=color_scale),
@@ -946,7 +946,7 @@ with tab3:
 
         # Line
         fig.add_scatter(
-            x=list(range(len(pareto_top))),
+            x=pareto_top["product_detail"],
             y=pareto_top["Cumulative %"],
             name="Cumulative %",
             yaxis="y2",
@@ -963,16 +963,14 @@ with tab3:
             paper_bgcolor=bg_card,
             plot_bgcolor=bg_card,
             font=dict(color=text_color),
-            bargap=0.25,
             xaxis=dict(
                 title="Products",
-                tickangle=30,
+                tickangle=35,
                 showgrid=False,
                 automargin=True,
-                tickmode="array",
-                tickvals=list(range(len(pareto_top))),
-                ticktext=pareto_top["product_detail"],
-                tickfont=dict(color=text_color, size=10),
+                ticklabelposition="outside",
+                tickson="boundaries",
+                tickfont=dict(color=text_color),
                 title_font=dict(color=text_color),
             ),
             yaxis=dict(
