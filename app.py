@@ -173,11 +173,11 @@ plt.rcParams.update(
 #     df = pd.read_excel(uploaded_file)
 # else:
 #     st.stop()
-try:
-    df = pd.read_excel("Afficionado Coffee Roasters.xlsx")
-except:
-    st.error("Database not found")
-    st.stop()
+# try:
+df = pd.read_excel("Afficionado Coffee Roasters.xlsx")
+# except:
+#     st.error("Database not found")
+#     st.stop()
 
 df["Revenue"] = df["transaction_qty"] * df["unit_price"]
 
