@@ -34,9 +34,24 @@ st.markdown(
 
 /* MOBILE FIX */
 @media (max-width: 768px) {
-    body, p, span, div {
+    @media (max-width: 768px) {
+
+    /* Main content text */
+    .stApp {
         color: #2E2E2E !important;
     }
+
+    /* Sidebar stays white */
+    section[data-testid="stSidebar"] * {
+        color: #FFFFFF !important;
+    }
+
+    /* KPI text stays white */
+    [data-testid="stMetricValue"],
+    [data-testid="stMetricLabel"] {
+        color: #FFFFFF !important;
+    }
+}
 }
 
 </style>
@@ -75,7 +90,13 @@ section[data-testid="stSidebar"] {{
 }}
 
 section[data-testid="stSidebar"] * {{
-    color:#FFFFFF;
+    color: #FFFFFF !important;
+}}
+
+section[data-testid="stSidebar"] label,
+section[data-testid="stSidebar"] span,
+section[data-testid="stSidebar"] p {{
+    color: #FFFFFF !important;
 }}
 
 /* MULTISELECT TAGS 
@@ -103,7 +124,7 @@ div[data-baseweb="select"] {{
     border: 1px solid #B0896F;
 }}
 
-/* KPI CARDS */
+/* KPI CARDS 
 [data-testid="stMetric"] * {{
     background-color: {bg_card};
     color:white !important;
@@ -111,6 +132,30 @@ div[data-baseweb="select"] {{
     border-radius: 16px;
     border: 1px solid rgba(0,0,0,0.1);
     box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}}*/
+
+[data-testid="stMetric"] {{
+    background-color: #A8785B !important;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}}
+
+/* Label (title) */
+[data-testid="stMetricLabel"] {{
+    color: #F5EFE6 !important;
+    font-weight: 500;
+}}
+
+/* Value (big number) */
+[data-testid="stMetricValue"] {{
+    color: #FFFFFF !important;
+    font-weight: 700;
+}}
+
+/* Delta (if any) */
+[data-testid="stMetricDelta"] {{
+    color: #D1FAE5 !important;
 }}
 
 /* TEXT */
