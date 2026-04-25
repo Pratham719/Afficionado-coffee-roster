@@ -706,14 +706,27 @@ with tab2:
     heatmap_norm = heatmap_data.div(
         heatmap_data.max(axis=1).replace(0, np.nan), axis=0
     ).fillna(0)
-    heatmap_data.index = heatmap_data.index.str.slice(0, 10)
+
+    top_categories = (
+        filtered_df.groupby("product_category")["Revenue"]
+        .sum()
+        .sort_values(ascending=False)
+        .head(6)  # 👈 limit (5–7 best)
+        .index
+    )
+
+    heatmap_data = heatmap_data.loc[top_categories]
+    heatmap_norm = heatmap_norm.loc[top_categories]
+
+    heatmap_norm.index = heatmap_norm.index.str.slice(0, 8)
+
     fig = go.Figure(
         data=go.Heatmap(
             z=heatmap_norm.values,
             x=heatmap_norm.columns,
             y=heatmap_norm.index,
-            xgap=1,
-            ygap=1,
+            xgap=0.5,
+            ygap=0.5,
             hoverongaps=False,
             colorscale=[
                 [0.0, "#FFFFE5"],  # very light yellow
@@ -723,7 +736,7 @@ with tab2:
                 [0.8, "#EC7014"],
                 [1.0, "#CC4C02"],  # deep orange-brown
             ],
-            hovertemplate="<b>%{y}</b><br>Hour: %{x}<br>Value: %{z:.2f}<extra></extra>",
+            hovertemplate="<b>%{y}</b><br>Hr: %{x}<br>₹ %{z:.2f}<extra></extra>",
             colorbar=dict(
                 title="Intensity",
                 tickfont=dict(color=text_color),
@@ -733,18 +746,18 @@ with tab2:
     )
 
     fig.update_layout(
-        height=440,
-        margin=dict(l=10, r=10, t=30, b=40),
+        height=320,
+        margin=dict(l=5, r=5, t=30, b=20),
         paper_bgcolor=bg_card,
         plot_bgcolor=bg_card,
         font=dict(color=text_color),
         xaxis=dict(
             title="Hour",
             showgrid=False,
-            tickfont=dict(color=text_color),
+            tickfont=dict(color=text_color, size=9),
         ),
         yaxis=dict(
-            title="Category", tickfont=dict(color=text_color, size=10), automargin=True
+            title="Category", tickfont=dict(color=text_color, size=9), automargin=True
         ),
     )
 
