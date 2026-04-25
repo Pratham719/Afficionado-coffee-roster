@@ -81,8 +81,8 @@ section[data-testid="stSidebar"] * {{
 /* MULTISELECT TAGS 
 [data-baseweb="tag"] {{
     background-color: {sidebar_bg} !important;  /* forest green */
-    color: #FFFFFF !important;
-}}F5F5F5*/
+    color: #F5F5F5 ;
+}}*/
 
 [data-baseweb="tag"] {{
     background-color: {bg_card} !important;  /* your green */
