@@ -705,7 +705,7 @@ with tab2:
     heatmap_norm = heatmap_data.div(
         heatmap_data.max(axis=1).replace(0, np.nan), axis=0
     ).fillna(0)
-
+    heatmap_data.index = heatmap_data.index.str.slice(0, 10)
     fig = go.Figure(
         data=go.Heatmap(
             z=heatmap_norm.values,
@@ -732,8 +732,8 @@ with tab2:
     )
 
     fig.update_layout(
-        height=470,
-        margin=dict(l=40, r=20, t=30, b=40),
+        height=440,
+        margin=dict(l=10, r=10, t=30, b=40),
         paper_bgcolor=bg_card,
         plot_bgcolor=bg_card,
         font=dict(color=text_color),
@@ -743,8 +743,7 @@ with tab2:
             tickfont=dict(color=text_color),
         ),
         yaxis=dict(
-            title="Category",
-            tickfont=dict(color=text_color),
+            title="Category", tickfont=dict(color=text_color, size=10), automargin=True
         ),
     )
 
