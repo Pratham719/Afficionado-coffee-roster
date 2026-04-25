@@ -25,13 +25,37 @@ accent = "#6F4E37"  # coffee brown (lines)
 accent2 = "#C58940"  # caramel highlight
 accent3 = "#5C7AEA"  # soft contrast blue
 
-
 sidebar_bg = "#8B5E3C"
 
+# ====== Mobile-specific ==========
+st.markdown(
+    """
+<style>
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
+    body, p, span, div {
+        color: #2E2E2E !important;
+    }
+}
+
+</style>
+""",
+    unsafe_allow_html=True,
+)
 st.markdown(
     f"""
 <style>
 
+/* FORCE TEXT COLOR FIX */
+html, body, [class*="css"] {{
+    color: {text_color} !important;
+}}
+
+/* Fix markdown + labels */
+p, span, label, div {{
+    color: {text_color} !important;
+}}
 /* MAIN BACKGROUND */
 .stApp {{
     background-color: {bg_main};
@@ -51,14 +75,14 @@ section[data-testid="stSidebar"] {{
 }}
 
 section[data-testid="stSidebar"] * {{
-    color:#F5F5F5;
+    color:#FFFFFF;
 }}
 
 /* MULTISELECT TAGS 
 [data-baseweb="tag"] {{
     background-color: {sidebar_bg} !important;  /* forest green */
     color: #FFFFFF !important;
-}}*/
+}}F5F5F5*/
 
 [data-baseweb="tag"] {{
     background-color: {bg_card} !important;  /* your green */
@@ -80,9 +104,9 @@ div[data-baseweb="select"] {{
 }}
 
 /* KPI CARDS */
-[data-testid="stMetric"] {{
+[data-testid="stMetric"] * {{
     background-color: {bg_card};
-    color:white;
+    color:white !important;
     padding: 12px;
     border-radius: 16px;
     border: 1px solid rgba(0,0,0,0.1);
@@ -168,12 +192,7 @@ plt.rcParams.update(
 )  # box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 
 # ---------------- LOAD DATA ----------------
-# uploaded_file = st.file_uploader("Upload Excel File", type=["xlsx"])
 
-# if uploaded_file:
-#     df = pd.read_excel(uploaded_file)
-# else:
-#     st.stop()
 try:
     file_path = os.path.join(
         os.path.dirname(__file__), "Afficionado Coffee Roasters.xlsx"
