@@ -913,7 +913,7 @@ with tab3:
         st.markdown("<div style='margin-bottom:25px;'></div>", unsafe_allow_html=True)
 
     with subtab2:
-        # --------------------- Petro -------------------------------------
+        # --------------------- Pareto -------------------------------------
 
         st.markdown("### 📊 Advanced Pareto Analysis")
 
@@ -937,7 +937,7 @@ with tab3:
 
         # Bars
         fig.add_bar(
-            x=pareto_top["product_detail"],
+            x=list(range(len(pareto_top))),
             y=pareto_top["Revenue"],
             name="Revenue",
             marker=dict(color=color_scale),
@@ -946,7 +946,7 @@ with tab3:
 
         # Line
         fig.add_scatter(
-            x=pareto_top["product_detail"],
+            x=list(range(len(pareto_top))),
             y=pareto_top["Cumulative %"],
             name="Cumulative %",
             yaxis="y2",
@@ -963,14 +963,16 @@ with tab3:
             paper_bgcolor=bg_card,
             plot_bgcolor=bg_card,
             font=dict(color=text_color),
+            bargap=0.25,
             xaxis=dict(
                 title="Products",
-                tickangle=35,
+                tickangle=30,
                 showgrid=False,
                 automargin=True,
-                ticklabelposition="outside",
-                tickson="labels",
-                tickfont=dict(color=text_color),
+                tickmode="array",
+                tickvals=list(range(len(pareto_top))),
+                ticktext=pareto_top["product_detail"],
+                tickfont=dict(color=text_color, size=10),
                 title_font=dict(color=text_color),
             ),
             yaxis=dict(
