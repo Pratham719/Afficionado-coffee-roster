@@ -6,6 +6,7 @@ import seaborn as sns
 import plotly.graph_objects as go
 import plotly.express as px
 import plotly.colors as pc
+import os
 
 st.set_page_config(
     page_title="Product Optimization & Revenue Contribution Analysis for Afficionado Coffee Roasters",
@@ -174,24 +175,66 @@ plt.rcParams.update(
 # else:
 #     st.stop()
 try:
-    df = pd.read_excel("Afficionado Coffee Roasters.xlsx")
+    file_path = os.path.join(
+        os.path.dirname(__file__), "Afficionado Coffee Roasters.xlsx"
+    )
+    df = pd.read_excel(file_path)
 except Exception as e:
     st.error(f"Error loading file: {e}")
     st.stop()
 
+
+if df.empty:
+    st.error("🚨 Data became empty after time parsing. Check your time format.")
+    st.stop()
+
 df["Revenue"] = df["transaction_qty"] * df["unit_price"]
 
-# ---------------- CLEAN TIME ----------------
-df["transaction_time"] = df["transaction_time"].astype(str).str.strip()
+# Detect if time is numeric (Excel format)
+if np.issubdtype(df["transaction_time"].dtype, np.number):
 
-df["transaction_time"] = pd.to_datetime(
-    df["transaction_time"], format="%H:%M:%S", errors="coerce"
-)
+    df["transaction_time"] = pd.to_timedelta(df["transaction_time"], unit="D")
+
+    # Convert to datetime (attach dummy date)
+    df["transaction_time"] = pd.to_datetime("1900-01-01") + df["transaction_time"]
+
+else:
+    df["transaction_time"] = pd.to_datetime(df["transaction_time"], errors="coerce")
+
+# Now drop nulls
 df = df.dropna(subset=["transaction_time"])
 
-# ---------------- FEATURE ENGINEERING ----------------
-
+# Extract hour
 df["Hour"] = df["transaction_time"].dt.hour
+
+
+# # ---------------- CLEAN TIME (ROBUST FIX) ----------------
+
+# df["transaction_time"] = df["transaction_time"].astype(str).str.strip()
+
+# df["transaction_time"] = pd.to_datetime(
+#     df["transaction_time"], format="%H:%M:%S", errors="coerce"
+# )
+
+# # Check how many rows failed
+# null_time = df["transaction_time"].isna().sum()
+# st.write(f"⚠ Failed time parsing rows: {null_time}")
+
+# # Drop only if reasonable
+# valid_rows = df["transaction_time"].notna().sum()
+# st.write(f"✅ Valid time rows: {valid_rows}")
+
+# if valid_rows == 0:
+#     st.error("🚨 Time parsing failed completely. Check format.")
+#     st.stop()
+
+# df = df.dropna(subset=["transaction_time"])
+
+# st.write("✅ Rows after time cleaning:", len(df))
+
+# # ---------------- FEATURE ENGINEERING ----------------
+
+# df["Hour"] = df["transaction_time"].dt.hour
 
 # ---------------- NOW FILTER ----------------
 filtered_df = df.copy()
@@ -199,10 +242,11 @@ filtered_df = df.copy()
 # ================= SIDEBAR =================
 with st.sidebar:
     st.markdown("## 🔎 Filters")
-    st.help("Filters are dependent on previous selections")
-
     selected_category = st.multiselect(
-        "Select Category", df["product_category"].dropna().unique()
+        "Select Category",
+        df["product_category"].dropna().unique(),
+        default=filtered_df["product_category"].dropna().unique(),
+        help="Filters are dependent on previous selections",
     )
 
     if selected_category:
@@ -213,13 +257,18 @@ with st.sidebar:
     top_n = st.slider("Top N Products", 5, 20, 10)
 
     selected_type = st.multiselect(
-        "Select Product Type", filtered_df["product_type"].dropna().unique()
+        "Select Product Type",
+        filtered_df["product_type"].dropna().unique(),
+        default=filtered_df["product_type"].dropna().unique(),
+        help="Options update based on selected category",
     )
     if selected_type:
         filtered_df = filtered_df[filtered_df["product_type"].isin(selected_type)]
 
     selected_location = st.multiselect(
-        "Select Store Location", filtered_df["store_location"].dropna().unique()
+        "Select Store Location",
+        filtered_df["store_location"].dropna().unique(),
+        default=filtered_df["store_location"].dropna().unique(),
     )
     if selected_location:
         filtered_df = filtered_df[filtered_df["store_location"].isin(selected_location)]
@@ -1215,7 +1264,7 @@ Focus: Scale heroes, optimize or remove dead products
             return ""
 
         st.dataframe(
-            drill_df.style.applymap(highlight_top, subset=["Rank"])
+            drill_df.style.map(highlight_top, subset=["Rank"])
             .set_table_styles(
                 [
                     {
