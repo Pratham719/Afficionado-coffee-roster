@@ -173,11 +173,11 @@ plt.rcParams.update(
 #     df = pd.read_excel(uploaded_file)
 # else:
 #     st.stop()
-# try:
-df = pd.read_excel("Afficionado Coffee Roasters.xlsx")
-# except:
-#     st.error("Database not found")
-#     st.stop()
+try:
+    df = pd.read_excel("Afficionado Coffee Roasters.xlsx")
+except Exception as e:
+    st.error(f"Error loading file: {e}")
+    st.stop()
 
 df["Revenue"] = df["transaction_qty"] * df["unit_price"]
 
@@ -199,7 +199,7 @@ filtered_df = df.copy()
 # ================= SIDEBAR =================
 with st.sidebar:
     st.markdown("## 🔎 Filters")
-    st.caption("Filters are dependent on previous selections")
+    st.help("Filters are dependent on previous selections")
 
     selected_category = st.multiselect(
         "Select Category", df["product_category"].dropna().unique()
