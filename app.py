@@ -150,7 +150,8 @@ div[data-baseweb="select"] {{
 /* Value (big number) */
 [data-testid="stMetricValue"] {{
     color: #FFFFFF !important;
-    font-weight: 700;
+    font-weight: 500 !important;   /* 👈 normal */
+    font-size: 20px !important;    /* optional: slightly smaller */
 }}
 
 /* Delta (if any) */
