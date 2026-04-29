@@ -273,34 +273,6 @@ df = df.dropna(subset=["transaction_time"])
 df["Hour"] = df["transaction_time"].dt.hour
 
 
-# # ---------------- CLEAN TIME (ROBUST FIX) ----------------
-
-# df["transaction_time"] = df["transaction_time"].astype(str).str.strip()
-
-# df["transaction_time"] = pd.to_datetime(
-#     df["transaction_time"], format="%H:%M:%S", errors="coerce"
-# )
-
-# # Check how many rows failed
-# null_time = df["transaction_time"].isna().sum()
-# st.write(f"⚠ Failed time parsing rows: {null_time}")
-
-# # Drop only if reasonable
-# valid_rows = df["transaction_time"].notna().sum()
-# st.write(f"✅ Valid time rows: {valid_rows}")
-
-# if valid_rows == 0:
-#     st.error("🚨 Time parsing failed completely. Check format.")
-#     st.stop()
-
-# df = df.dropna(subset=["transaction_time"])
-
-# st.write("✅ Rows after time cleaning:", len(df))
-
-# # ---------------- FEATURE ENGINEERING ----------------
-
-# df["Hour"] = df["transaction_time"].dt.hour
-
 # ---------------- NOW FILTER ----------------
 filtered_df = df.copy()
 
@@ -338,6 +310,24 @@ with st.sidebar:
     if selected_location:
         filtered_df = filtered_df[filtered_df["store_location"].isin(selected_location)]
 
+    st.markdown(
+        """
+        <div style="
+            background:#6F4E37;
+            padding:15px;
+            border-radius:12px;
+            color:white;
+            margin-bottom:15px;
+        ">
+            <b>👤 About</b><br><br>
+
+            👨‍🏫 <a href="https://your-mentor-link.com" target="_blank" style="color:#FFD580;">Mentor</a><br>
+            🏢 <a href="https://unifiedmentor.com" target="_blank" style="color:#FFD580;">Unified Mentor</a><br>
+            💼 <a href="https://linkedin.com/in/your-profile" target="_blank" style="color:#FFD580;">LinkedIn</a>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 if filtered_df.empty:
     st.warning("No data available. Please adjust filters.")
@@ -969,7 +959,6 @@ with tab3:
                 showgrid=False,
                 automargin=True,
                 ticklabelposition="outside",
-                tickson="boundaries",
                 tickfont=dict(color=text_color),
                 title_font=dict(color=text_color),
             ),
