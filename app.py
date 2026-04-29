@@ -313,11 +313,16 @@ with st.sidebar:
     st.markdown("""
 ### 👤 About
 
-🔗 **Connect & References**
+🔗 **PROJECT INFO**
 
-- 👨‍🏫 [Mentor](https://saikagne.github.io/)
-- 🏢 [Unified Mentor](https://unifiedmentor.com)
-- 💼 [LinkedIn](https://www.linkedin.com/in/pratham-rangoonwala-a79872359)
+- 🎓 **INSTRUCTOR – Sai Kagne**  
+  https://saikagne.github.io/
+
+- 🏢 **ORGANIZATION – Unified Mentor**  
+  https://unifiedmentor.com
+
+- 💼 **ANALYST – Pratham Rangoonwala**  
+  https://www.linkedin.com/in/pratham-rangoonwala-a79872359
 
 ---
 """)
