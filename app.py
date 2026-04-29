@@ -321,12 +321,12 @@ with st.sidebar:
         ">
             <b>👤 About</b><br><br>
 
-            👨‍🏫 <a href="https://your-mentor-link.com" target="_blank" style="color:#FFD580;">Mentor</a><br>
+            👨‍🏫 <a href="https://saikagne.github.io/" target="_blank" style="color:#FFD580;">Mentor</a><br>
             🏢 <a href="https://unifiedmentor.com" target="_blank" style="color:#FFD580;">Unified Mentor</a><br>
-            💼 <a href="https://linkedin.com/in/your-profile" target="_blank" style="color:#FFD580;">LinkedIn</a>
+            💼 <a href="https://www.linkedin.com/in/pratham-rangoonwala-a79872359" target="_blank" style="color:#FFD580;">LinkedIn</a>
         </div>
         """,
-        unsafe_allow_html=True
+        unsafe_allow_html=True,
     )
 
 if filtered_df.empty:
