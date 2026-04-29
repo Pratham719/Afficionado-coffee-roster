@@ -310,22 +310,25 @@ with st.sidebar:
     if selected_location:
         filtered_df = filtered_df[filtered_df["store_location"].isin(selected_location)]
 
-    st.markdown("""
+    st.markdown(
+        """
 ### 👤 About
 
 🔗 **PROJECT INFO**
 
-- 🎓 **INSTRUCTOR – Sai Kagne**  
-  https://saikagne.github.io/
+- 🎓 **INSTRUCTOR**<br> 
+[Sai Kagne](https://saikagne.github.io/)
 
-- 🏢 **ORGANIZATION – Unified Mentor**  
-  https://unifiedmentor.com
+- 🏢 **ORGANIZATION**<br> 
+[Unified Mentor](https://unifiedmentor.com)
 
-- 💼 **ANALYST – Pratham Rangoonwala**  
-  https://www.linkedin.com/in/pratham-rangoonwala-a79872359
+- 💼 **ANALYST**<br> 
+[Pratham Rangoonwala](https://www.linkedin.com/in/pratham-rangoonwala-a79872359)
 
 ---
-""")
+""",
+        unsafe_allow_html=True,
+    )
 
 if filtered_df.empty:
     st.warning("No data available. Please adjust filters.")
