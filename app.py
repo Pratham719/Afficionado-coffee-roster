@@ -310,24 +310,17 @@ with st.sidebar:
     if selected_location:
         filtered_df = filtered_df[filtered_df["store_location"].isin(selected_location)]
 
-    st.markdown(
-        """
-        <div style="
-            background:#6F4E37;
-            padding:15px;
-            border-radius:12px;
-            color:white;
-            margin-bottom:15px;
-        ">
-            <b>👤 About</b><br><br>
+    st.markdown("""
+### 👤 About
 
-            👨‍🏫 <a href="https://saikagne.github.io/" target="_blank" style="color:#FFD580;">Mentor</a><br>
-            🏢 <a href="https://unifiedmentor.com" target="_blank" style="color:#FFD580;">Unified Mentor</a><br>
-            💼 <a href="https://www.linkedin.com/in/pratham-rangoonwala-a79872359" target="_blank" style="color:#FFD580;">LinkedIn</a>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+🔗 **Connect & References**
+
+- 👨‍🏫 [Mentor](https://saikagne.github.io/)
+- 🏢 [Unified Mentor](https://unifiedmentor.com)
+- 💼 [LinkedIn](https://www.linkedin.com/in/pratham-rangoonwala-a79872359)
+
+---
+""")
 
 if filtered_df.empty:
     st.warning("No data available. Please adjust filters.")
